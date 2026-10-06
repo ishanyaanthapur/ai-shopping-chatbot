@@ -1,0 +1,152 @@
+.search-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 80;
+}
+
+.search-scrim {
+  position: absolute;
+  inset: 0;
+  background: rgba(6, 20, 40, 0.4);
+  animation: search-fade 0.2s ease;
+}
+
+.search-panel {
+  position: relative;
+  background: var(--paper);
+  padding: 1.5rem 0 2rem;
+  box-shadow: 0 20px 40px rgba(6, 20, 40, 0.2);
+  animation: search-drop 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+@keyframes search-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes search-drop {
+  from {
+    transform: translateY(-16px);
+    opacity: 0;
+  }
+}
+
+.search-form {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  border-bottom: 2px solid var(--yale-blue);
+  padding-bottom: 0.6rem;
+  color: var(--yale-blue);
+}
+
+.search-form input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-family: var(--font-serif);
+  font-size: 1.6rem;
+  color: var(--text-color);
+  outline: none;
+}
+
+.search-form input::placeholder {
+  color: var(--gray-400);
+}
+
+.search-close {
+  background: none;
+  border: none;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+
+.search-popular {
+  margin-top: 1.25rem;
+}
+
+.search-popular-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.search-popular-chips button {
+  padding: 0.45rem 0.9rem;
+  border: 1px solid var(--border-color);
+  border-radius: 999px;
+  background: var(--white);
+  font-size: 0.85rem;
+  color: var(--yale-blue);
+  cursor: pointer;
+}
+
+.search-popular-chips button:hover {
+  border-color: var(--yale-blue);
+}
+
+.search-empty {
+  margin-top: 1.25rem;
+  color: var(--text-muted);
+}
+
+.search-results {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  margin-top: 1.25rem;
+}
+
+.search-result {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.search-result img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: contain;
+  background: var(--white);
+  border-radius: var(--radius);
+  transition: transform 0.2s ease;
+}
+
+.search-result:hover img {
+  transform: translateY(-3px);
+}
+
+.search-result-name {
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+.search-result-price {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--yale-blue);
+}
+
+.search-all {
+  margin-top: 1.25rem;
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--yale-blue);
+  cursor: pointer;
+}
+
+@media (max-width: 860px) {
+  .search-results {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

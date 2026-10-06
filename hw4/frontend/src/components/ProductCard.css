@@ -1,0 +1,138 @@
+.product-card {
+  display: flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.product-card-image {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  background: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: box-shadow 0.25s ease;
+}
+
+.product-card:hover .product-card-image {
+  box-shadow: var(--shadow-lift);
+}
+
+.product-card-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 6%;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.product-card:hover .product-card-image img {
+  transform: scale(1.06);
+}
+
+.product-card-badge {
+  position: absolute;
+  top: 0.65rem;
+  left: 0.65rem;
+  z-index: 1;
+  padding: 0.25rem 0.55rem;
+  background: var(--paper);
+  border: 1px solid var(--border-color);
+  border-radius: 2px;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--yale-blue);
+}
+
+/* "Shop now" bar slides up on hover, like a store-window placard. */
+.product-card-cta {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 0.7rem;
+  background: var(--yale-blue);
+  color: var(--white);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-align: center;
+  transform: translateY(100%);
+  transition: transform 0.25s ease;
+}
+
+.product-card:hover .product-card-cta,
+.product-card:focus-visible .product-card-cta {
+  transform: translateY(0);
+}
+
+.product-card-image-fallback {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+}
+
+.product-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.85rem 0.15rem 0;
+}
+
+.product-card-type {
+  font-family: var(--font-varsity);
+  font-size: 0.66rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--brass);
+}
+
+.product-card-body h3 {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.3;
+  color: var(--text-color);
+}
+
+.product-card:hover .product-card-body h3 {
+  color: var(--yale-blue);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+}
+
+.product-card-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: 0.1rem;
+}
+
+.product-card-price {
+  font-weight: 700;
+  color: var(--yale-blue);
+}
+
+.product-card-colors {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.product-card-swatch {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1px solid var(--gray-300);
+}
+
+.product-card-more {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}

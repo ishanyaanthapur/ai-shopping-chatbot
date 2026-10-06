@@ -1,0 +1,94 @@
+.about-page {
+  padding-top: 3.5rem;
+}
+
+.about-hero {
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: clamp(2rem, 6vw, 5rem);
+  align-items: center;
+}
+
+.about-copy h1 {
+  font-size: clamp(2.2rem, 4.4vw, 3.4rem);
+  line-height: 1.08;
+}
+
+.about-copy p {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  line-height: 1.75;
+  max-width: 560px;
+}
+
+.about-lede {
+  font-size: 1.25rem !important;
+  color: var(--yale-blue);
+}
+
+/* Drop cap on the opening paragraph, like a college letterpress program. */
+.about-lede::first-letter {
+  float: left;
+  font-size: 3.6em;
+  line-height: 0.85;
+  padding: 0.08em 0.1em 0 0;
+  font-weight: 700;
+}
+
+.about-sign {
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.about-arch {
+  aspect-ratio: 4 / 5;
+  background: var(--white);
+  border: 12px solid var(--white);
+  box-shadow: 0 0 0 1px var(--border-color), var(--shadow-lift);
+}
+
+.about-arch img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 14% 8% 6%;
+}
+
+.about-values {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+  margin-top: 5rem;
+  padding-top: 2.5rem;
+  border-top: 2px solid var(--yale-blue);
+}
+
+.about-num {
+  font-family: var(--font-varsity);
+  font-size: 0.9rem;
+  color: var(--brass);
+}
+
+.about-values h3 {
+  margin: 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.about-values p {
+  margin: 0;
+  line-height: 1.6;
+  color: var(--text-muted);
+}
+
+.about-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 3.5rem;
+}
+
+@media (max-width: 860px) {
+  .about-hero,
+  .about-values {
+    grid-template-columns: 1fr;
+  }
+}

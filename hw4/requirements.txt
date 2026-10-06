@@ -1,0 +1,13 @@
+# Campus Customs backend — install into hw4/backend/.venv:
+#   cd backend && python3 -m venv .venv && .venv/bin/pip install -r ../requirements.txt
+# Versions are the ones the app was built and tested with.
+
+fastapi==0.141.1
+uvicorn[standard]==0.54.0
+pydantic-ai==2.51.0
+openai==3.19.2
+python-dotenv==1.2.3
+
+# Only needed for backend/scripts/clean_product_images.py
+pillow==12.3.0
+numpy==2.5.3

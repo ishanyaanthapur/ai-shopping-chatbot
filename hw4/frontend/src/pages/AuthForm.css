@@ -1,0 +1,111 @@
+.auth-page {
+  padding: 4rem 1.5rem 2rem;
+  display: flex;
+  justify-content: center;
+}
+
+/* Admissions-letter card: navy top rule and a "Y" seal over the heading. */
+.auth-card {
+  position: relative;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  border-top: 6px solid var(--yale-blue);
+  border-radius: var(--radius);
+  padding: 3rem 2.5rem 2.5rem;
+  width: 100%;
+  max-width: 440px;
+  box-shadow: var(--shadow-lift);
+}
+
+.auth-card::before {
+  content: "Y";
+  position: absolute;
+  top: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  background: var(--yale-blue);
+  color: var(--white);
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.6rem;
+  box-shadow: 0 0 0 4px var(--paper);
+}
+
+.auth-card h1 {
+  text-align: center;
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.auth-placeholder-note {
+  color: var(--text-muted);
+  font-size: 0.85rem;
+  background: var(--yale-blue-light);
+  border-radius: 6px;
+  padding: 0.6rem 0.75rem;
+  margin-bottom: 1.25rem;
+}
+
+.auth-card form {
+  display: flex;
+  flex-direction: column;
+}
+
+.auth-card label {
+  font-weight: 700;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin: 0.6rem 0 0.3rem;
+  color: var(--text-color);
+}
+
+.auth-card input {
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  padding: 0.8rem 0.9rem;
+  font-size: 0.95rem;
+  background: var(--paper);
+}
+
+.auth-card input:focus {
+  outline: 2px solid var(--yale-blue);
+  outline-offset: 1px;
+}
+
+.auth-errors {
+  color: var(--danger);
+  font-size: 0.85rem;
+  margin: 1rem 0 0;
+  padding-left: 1.1rem;
+}
+
+.auth-submit {
+  margin-top: 1.5rem;
+}
+
+.auth-result {
+  margin-top: 1.25rem;
+  padding: 0.75rem;
+  border-radius: 6px;
+  background: var(--yale-blue-light);
+  color: var(--yale-blue-dark);
+  font-size: 0.9rem;
+  font-weight: 600;
+}
+
+.auth-switch {
+  margin: 1.5rem 0 0;
+  text-align: center;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.auth-switch a {
+  font-weight: 700;
+}

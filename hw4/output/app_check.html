@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Campus Customs — App Check</title>
+  <style>
+    :root {
+      --navy: #00356b;
+      --paper: #f7f4ee;
+      --border: #ddd5c6;
+      --muted: #5d6673;
+      --pass: #1b7a3a;
+      --pass-bg: #e7f4ec;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--paper);
+      color: #0e1b2c;
+      font: 16px/1.6 -apple-system, "Segoe UI", Helvetica, Arial, sans-serif;
+    }
+    main { max-width: 920px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    h1, h2 { font-family: Georgia, "Times New Roman", serif; color: var(--navy); line-height: 1.2; }
+    h1 { font-size: 2.2rem; margin: 0 0 0.4rem; }
+    h2 { font-size: 1.45rem; margin: 0; }
+    .sub { color: var(--muted); margin: 0 0 1.5rem; }
+    .summary {
+      width: 100%;
+      border-collapse: collapse;
+      background: #fff;
+      border: 1px solid var(--border);
+      margin-bottom: 1rem;
+    }
+    .summary th, .summary td { padding: 0.6rem 0.8rem; border-bottom: 1px solid var(--border); text-align: left; }
+    .summary th { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+    .badge {
+      display: inline-block;
+      padding: 0.1rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      color: var(--pass);
+      background: var(--pass-bg);
+    }
+    .method { font-size: 0.9rem; color: var(--muted); }
+    section {
+      margin-top: 2.5rem;
+      padding: 1.75rem;
+      background: #fff;
+      border: 1px solid var(--border);
+      border-top: 5px solid var(--navy);
+      border-radius: 4px;
+    }
+    .head { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin-bottom: 0.75rem; }
+    .label { font-size: 0.75rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: #b38b4d; }
+    figure { margin: 1rem 0; }
+    figure img { display: block; width: 100%; height: auto; border: 1px solid var(--border); border-radius: 4px; }
+    figcaption { font-size: 0.85rem; color: var(--muted); margin-top: 0.4rem; }
+    .proves { margin: 0.75rem 0 0; }
+    .evidence { width: 100%; border-collapse: collapse; font-size: 0.88rem; margin-top: 0.75rem; }
+    .evidence th, .evidence td { border: 1px solid var(--border); padding: 0.35rem 0.6rem; text-align: left; }
+    .evidence th { background: var(--paper); }
+    .ok { color: var(--pass); font-weight: 700; }
+    code { background: var(--paper); padding: 0.05rem 0.3rem; border-radius: 3px; font-size: 0.88em; }
+    .note { font-size: 0.88rem; color: var(--muted); margin-top: 0.75rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>Campus Customs — App Check</h1>
+  <p class="sub">Problem 11 · Live site tested on 6 October 2026 at <code>http://localhost:5173</code> (FastAPI backend on <code>:8000</code>, model <code>gpt-5.6-luna</code>)</p>
+
+  <table class="summary">
+    <tr><th>#</th><th>Check</th><th>Result</th></tr>
+    <tr><td>1</td><td>Chatbot stock &amp; price answer matches the database</td><td><span class="badge">PASS</span></td></tr>
+    <tr><td>2</td><td>Category question surfaces matching product cards on the page</td><td><span class="badge">PASS</span></td></tr>
+    <tr><td>3</td><td>Problem 9 usability improvement: filter &amp; sort sidebar (FE-2)</td><td><span class="badge">PASS</span></td></tr>
+  </table>
+  <p class="method">
+    Method: each check ran as a guest in a freshly loaded page, so earlier chat history couldn't affect it.
+    Chat answers came from the live agent, not a mock. Screenshots were taken from the running app, and
+    the expected values were queried directly from <code>data/campus_customs.db</code>.
+  </p>
+
+  <!-- Check 1 -->
+  <section>
+    <div class="head">
+      <div>
+        <span class="label">Check 1</span>
+        <h2>Chatbot answers stock &amp; price correctly</h2>
+      </div>
+      <span class="badge">PASS</span>
+    </div>
+    <p>Asked: <em>“How much is the Berkeley 1/4 Zip, and how many do you have in size L?”</em></p>
+    <figure>
+      <img src="app_check_images/inventory.png" alt="Chat reply: The Berkeley 1/4 Zip is $72, and we currently have 5 in size L." />
+      <figcaption>Live chat reply: “The Berkeley 1/4 Zip is $72, and we currently have 5 in size L.”</figcaption>
+    </figure>
+    <table class="evidence">
+      <tr><th></th><th>Chatbot said</th><th>Database (<code>catalogue</code> / <code>inventory</code>)</th><th></th></tr>
+      <tr><td>Price</td><td>$72</td><td><code>berkeley-1-4-zip</code> price = 72.0</td><td class="ok">✓</td></tr>
+      <tr><td>Size L stock</td><td>5</td><td><code>berkeley-1-4-zip</code>, size L, quantity = 5</td><td class="ok">✓</td></tr>
+    </table>
+    <p class="proves">
+      <strong>What it proves:</strong> the agent pulls price and per-size stock from the database through
+      its tools instead of making them up. Both numbers match exactly, and the reply links to the matching
+      product.
+    </p>
+  </section>
+
+  <!-- Check 2 -->
+  <section>
+    <div class="head">
+      <div>
+        <span class="label">Check 2</span>
+        <h2>Category question shows product cards on the page</h2>
+      </div>
+      <span class="badge">PASS</span>
+    </div>
+    <p>Asked: <em>“What hoodies do you have?”</em> (no product cards were on the page beforehand)</p>
+    <figure>
+      <img src="app_check_images/hoodies_chat.png" alt="Chat answer listing five hoodies, with a product-card banner appearing above the page" />
+      <figcaption>The question and the chatbot's answer, with the results banner appearing above the page.</figcaption>
+    </figure>
+    <figure>
+      <img src="app_check_images/hoodies_cards.png" alt="Five hoodie product cards under the heading From your chat search: What hoodies do you have?" />
+      <figcaption>The same page with the chat closed: five real product cards under “From your chat search”.</figcaption>
+    </figure>
+    <table class="evidence">
+      <tr><th>Card on page</th><th>DB <code>garment_type</code></th><th>Price (card / DB)</th><th></th></tr>
+      <tr><td>Basic Hoodie Big Yale</td><td>pullover hoodie</td><td>$68 / 68.0</td><td class="ok">✓</td></tr>
+      <tr><td>Brooks Brothers Double Knit Full Zip Hoodie Yale</td><td>full-zip hooded sweatshirt</td><td>$88 / 88.0</td><td class="ok">✓</td></tr>
+      <tr><td>Champion Full Zip Hood</td><td>full-zip hooded sweatshirt</td><td>$88 / 88.0</td><td class="ok">✓</td></tr>
+      <tr><td>Champion Reverse Weave Hoodie 1</td><td>hoodie</td><td>$68 / 68.0</td><td class="ok">✓</td></tr>
+      <tr><td>Crew Left Chest Hoodie</td><td>pullover hoodie</td><td>$68 / 68.0</td><td class="ok">✓</td></tr>
+    </table>
+    <p class="proves">
+      <strong>What it proves:</strong> a plain-English category question makes product cards appear on the
+      page itself, not only in the chat. Every card is a real hoodie with the correct price and links to its
+      product page.
+    </p>
+    <p class="note">
+      Observation: the catalogue has 27 hoodies, but the chat shows the first 5. This is by design: the
+      agent's <code>search_products</code> tool returns at most 5 matches. To see all 27, use the
+      Hoodies link in the navigation.
+    </p>
+  </section>
+
+  <!-- Check 3 -->
+  <section>
+    <div class="head">
+      <div>
+        <span class="label">Check 3</span>
+        <h2>Usability improvement: filter &amp; sort sidebar (FE-2)</h2>
+      </div>
+      <span class="badge">PASS</span>
+    </div>
+    <p>
+      From <code>output/usability.md</code>, <strong>FE-2 — Filter &amp; sort sidebar on the Products page</strong>.
+      On <code>/products</code> I ticked <em>Hoodies</em> and <em>Navy</em>, set the price slider's maximum
+      to $70, and sorted by <em>Price: Low to High</em>.
+    </p>
+    <figure>
+      <img src="app_check_images/usability_filters.png" alt="Products page filtered to navy hoodies $32–$70, showing 23 products sorted by price" />
+      <figcaption>Ticked filters, removable filter tags, the $32–$70 slider, and “23 products” sorted by price, low to high.</figcaption>
+    </figure>
+    <table class="evidence">
+      <tr><th></th><th>App</th><th>Expected</th><th></th></tr>
+      <tr><td>Products before filtering</td><td>102</td><td>102 rows in <code>catalogue</code></td><td class="ok">✓</td></tr>
+      <tr><td>Navy hoodies ≤ $70</td><td>23</td><td>23 (SQL count over <code>garment_type</code>, <code>colors</code>, <code>price</code>)</td><td class="ok">✓</td></tr>
+      <tr><td>Sort order</td><td>$45, $45, then $68 ×21</td><td>ascending</td><td class="ok">✓</td></tr>
+      <tr><td>Shareable URL</td><td colspan="2"><code>?type=hoodies&amp;color=navy&amp;min=32&amp;max=70&amp;sort=price-asc</code></td><td class="ok">✓</td></tr>
+    </table>
+    <p class="proves">
+      <strong>What it proves:</strong> a shopper can go from 102 products to “navy hoodies under $70” in a
+      few clicks, and the count matches the database exactly. The filters are saved in the URL, so the
+      view can be shared or reached again with the back button.
+    </p>
+    <p class="note">
+      Observation: “Yale Sports Hoodie Tennis” is gray but still matches the Navy filter, because its
+      database colors are <code>heather gray, navy blue</code> (the lettering is navy). That is correct for
+      the data, though a shopper might expect “navy” to mean the main garment color.
+    </p>
+  </section>
+</main>
+</body>
+</html>

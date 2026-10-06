@@ -1,0 +1,74 @@
+.rail {
+  margin-top: 5rem;
+}
+
+.rail-head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.rail-head h2 {
+  margin: 0;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+}
+
+.rail-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.rail-view-all {
+  margin-right: 0.75rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+}
+
+.rail-arrow {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid var(--yale-blue);
+  background: transparent;
+  color: var(--yale-blue);
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.rail-arrow:hover {
+  background: var(--yale-blue);
+  color: var(--white);
+}
+
+.rail-track {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: calc((100% - 3 * 1.5rem) / 4);
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: none;
+  padding-bottom: 0.5rem;
+}
+
+.rail-track::-webkit-scrollbar {
+  display: none;
+}
+
+.rail-item {
+  scroll-snap-align: start;
+}
+
+@media (max-width: 860px) {
+  .rail-track {
+    grid-auto-columns: 62%;
+  }
+}

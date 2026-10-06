@@ -1,0 +1,412 @@
+.hero-skeleton {
+  min-height: min(620px, 78vh);
+  background: linear-gradient(90deg, var(--yale-blue) 50%, var(--stone) 50%);
+  opacity: 0.85;
+}
+
+.home-error {
+  padding: 5rem 1.5rem;
+  text-align: center;
+}
+
+.home-section {
+  margin-top: 5.5rem;
+}
+
+.section-head {
+  margin-bottom: 2rem;
+}
+
+.section-head h2 {
+  margin: 0;
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+}
+
+.section-head-center {
+  text-align: center;
+}
+
+.section-sub {
+  margin: 0.75rem auto 0;
+  max-width: 480px;
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+/* --- Category arches -------------------------------------------------- */
+
+.arch-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.25rem;
+}
+
+.arch-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.arch-tile-frame {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  background: var(--white);
+  border: 1px solid var(--border-color);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.arch-tile-frame img {
+  width: 100%;
+  height: 82%;
+  object-fit: contain;
+  padding: 0 8% 10%;
+  transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.arch-tile:hover .arch-tile-frame {
+  background: var(--yale-blue-light);
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-lift);
+}
+
+.arch-tile:hover .arch-tile-frame img {
+  transform: scale(1.06);
+}
+
+.arch-tile-name {
+  margin-top: 0.9rem;
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--yale-blue);
+}
+
+.arch-tile-count {
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  letter-spacing: 0.04em;
+}
+
+/* --- Pennant wall ---------------------------------------------------- */
+
+.pennant-section {
+  margin-top: 6rem;
+  padding: 4rem 0 3.5rem;
+  background:
+    radial-gradient(rgba(0, 53, 107, 0.07) 1px, transparent 1px) 0 0 / 18px 18px,
+    var(--stone);
+}
+
+.pennant-line {
+  position: relative;
+  margin-top: 1.5rem;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.pennant-line::-webkit-scrollbar {
+  display: none;
+}
+
+.pennant-string {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 14px;
+  height: 2px;
+  background: var(--brass);
+}
+
+.pennants {
+  display: flex;
+  justify-content: center;
+  gap: 0.6rem;
+  padding: 14px 1.5rem 1.5rem;
+  min-width: max-content;
+  margin: 0 auto;
+}
+
+/* Felt pennant: a long tapered triangle hung from the string. */
+.pennant {
+  position: relative;
+  width: 76px;
+  height: 190px;
+  clip-path: polygon(0 0, 100% 0, 50% 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 0.9rem;
+  text-decoration: none;
+  transform-origin: top center;
+  animation: pennant-sway 4.5s ease-in-out infinite;
+  transition: filter 0.2s ease;
+  background-image: radial-gradient(rgba(255, 255, 255, 0.07) 1px, transparent 1px);
+  background-size: 4px 4px;
+}
+
+.pennant-0 {
+  background-color: var(--yale-blue);
+  color: var(--white);
+}
+
+.pennant-1 {
+  background-color: var(--white);
+  color: var(--yale-blue);
+  background-image: radial-gradient(rgba(0, 53, 107, 0.06) 1px, transparent 1px);
+}
+
+.pennant-2 {
+  background-color: var(--accent);
+  color: var(--white);
+}
+
+.pennant:hover {
+  animation-play-state: paused;
+  filter: brightness(1.08) drop-shadow(0 6px 6px rgba(0, 0, 0, 0.2));
+}
+
+@keyframes pennant-sway {
+  0%,
+  100% {
+    transform: rotate(-1.6deg);
+  }
+  50% {
+    transform: rotate(1.6deg);
+  }
+}
+
+.pennant-name {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-family: var(--font-varsity);
+  font-size: 0.72rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  line-height: 1;
+  max-height: 120px;
+}
+
+.pennant-count {
+  margin-top: 0.5rem;
+  font-size: 0.62rem;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.pennant-cta {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* --- Family band ------------------------------------------------------ */
+
+.family-band {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  align-items: center;
+  padding: clamp(2rem, 5vw, 4rem);
+  background:
+    radial-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px) 0 0 / 20px 20px,
+    var(--yale-blue);
+  color: var(--white);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.family-copy .eyebrow {
+  color: #d8c29a;
+}
+
+.family-copy h2 {
+  color: var(--white);
+  font-size: clamp(1.8rem, 3.4vw, 2.6rem);
+}
+
+.family-copy p {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 1.5rem;
+}
+
+.family-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 2rem;
+}
+
+.family-chip {
+  padding: 0.4rem 0.9rem;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  font-size: 0.82rem;
+  color: var(--white);
+  text-decoration: none;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.family-chip:hover {
+  background: var(--white);
+  color: var(--yale-blue);
+}
+
+/* Three photos scattered like prints on a dorm-room corkboard. */
+.family-collage {
+  position: relative;
+  height: 360px;
+}
+
+.family-photo {
+  position: absolute;
+  width: 52%;
+  aspect-ratio: 1;
+  background: var(--white);
+  padding: 0.6rem 0.6rem 1.8rem;
+  box-shadow: 0 18px 30px -12px rgba(0, 0, 0, 0.45);
+  transition: transform 0.3s ease, z-index 0s;
+}
+
+.family-photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.family-photo-0 {
+  left: 0;
+  top: 8%;
+  transform: rotate(-6deg);
+}
+
+.family-photo-1 {
+  left: 26%;
+  top: 0;
+  transform: rotate(3deg);
+  z-index: 1;
+}
+
+.family-photo-2 {
+  right: 0;
+  top: 22%;
+  transform: rotate(-2deg);
+}
+
+.family-photo:hover {
+  transform: rotate(0deg) scale(1.05);
+  z-index: 2;
+}
+
+/* --- Athletics scoreboard ------------------------------------------- */
+
+.scoreboard {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  border-top: 2px solid var(--yale-blue);
+}
+
+.scoreboard-cell {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 1.1rem 0.25rem;
+  margin-right: 1.5rem;
+  border-bottom: 1px solid var(--border-color);
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.15s ease, padding 0.2s ease;
+}
+
+.scoreboard-cell:hover {
+  color: var(--yale-blue);
+  padding-left: 0.75rem;
+}
+
+.scoreboard-name {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+
+.scoreboard-count {
+  font-family: var(--font-varsity);
+  font-size: 0.85rem;
+  color: var(--brass);
+}
+
+/* --- Service promises ---------------------------------------------- */
+
+.promises {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.promise {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.25rem;
+  padding: 1.75rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius);
+  background: var(--white);
+  color: var(--yale-blue);
+  text-align: left;
+  font: inherit;
+}
+
+.promise h3 {
+  margin: 0.75rem 0 0.25rem;
+  font-size: 1.15rem;
+}
+
+.promise p {
+  margin: 0;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+.promise-action {
+  cursor: pointer;
+  transition: border-color 0.15s ease, box-shadow 0.2s ease;
+}
+
+.promise-action:hover {
+  border-color: var(--yale-blue);
+  box-shadow: var(--shadow-lift);
+}
+
+@media (max-width: 960px) {
+  .arch-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .scoreboard {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 760px) {
+  .family-band,
+  .promises {
+    grid-template-columns: 1fr;
+  }
+
+  .family-collage {
+    height: 280px;
+  }
+
+  .pennants {
+    justify-content: flex-start;
+  }
+}

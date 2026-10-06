@@ -1,0 +1,28 @@
+# Secrets — only .env.example is committed
+.env
+backend/.env
+# A parent .gitignore ignores .env.*, so re-include the template explicitly
+!.env.example
+
+# Local data pack — distributed separately, never committed:
+# campus_customs.db, the original product photos, and the cleaned copies
+# generated from them by backend/scripts/clean_product_images.py
+data/
+
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+
+# Frontend
+node_modules/
+frontend/dist/
+
+# Audit trail write temp file / moved-aside unreadable copies
+output/*.tmp
+output/audit_trail.unreadable-*.json
+
+# OS / editors
+.DS_Store
+.vscode/
+.idea/
