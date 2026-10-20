@@ -1,14 +1,20 @@
-# Campus Customs — Yale Bulldog Blue storefront
+# AI Shopping Chatbot: Campus Customs storefront
 
-MGT 409 (AI Fundamentals), Homework 4. A Yale merch storefront with an AI shopping assistant:
-a Vite + React + TypeScript frontend, a FastAPI backend, and a PydanticAI agent (`gpt-5.6-luna`
-via Portkey) that answers product, price and stock questions from the store's SQLite database.
+A full e-commerce storefront for Campus Customs, a Yale apparel store concept with 102 products, plus a floating AI shopping assistant. The assistant answers product, price, and stock questions straight from the store's SQLite database, shows its answers as clickable product cards, and hands off to a human when it can't help.
+
+- **Frontend:** Vite + React 19 + TypeScript
+- **Backend:** FastAPI
+- **Agent:** PydanticAI (`gpt-5.6-luna` via Portkey), with three read-only database tools and per-turn limits
+
+**[See the project write-up in my portfolio →](https://ishanya-anthapur.vercel.app/#chatbot)**
+
+![The assistant answering "What hoodies do you have?" with prices and product cards](output/app_check_images/hoodies_chat.png)
 
 ## Layout
 
 ```
-hw4/
-├── AI_prompts.md          # prompt log for Problems 2–12
+./
+├── AI_prompts.md          # log of the prompts used to build the project
 ├── requirements.txt       # backend Python dependencies
 ├── .env.example           # copy to .env and add your PORTKEY_API_KEY
 ├── .gitignore
@@ -44,18 +50,18 @@ The store database and product photos are excluded from Git. Copy them in so the
 like this:
 
 ```
-hw4/data/
+data/
 ├── campus_customs.db      # SQLite database: catalogue, inventory, users, chat_messages
 └── products/              # original product photos, e.g. basic-hoodie-big-yale.jpg
 ```
 
-The backend reads `hw4/data/campus_customs.db` and serves photos from `hw4/data/products/`. It
+The backend reads `data/campus_customs.db` and serves photos from `data/products/`. It
 also needs write access to the database, because accounts, chat history and support inquiries
 are saved there.
 
 *Optional:* many original photos have black backgrounds. To generate the white-background copies
 the redesigned site uses, run the cleanup script after installing the backend (step 3). It writes
-`hw4/data/products_clean/`, which the backend uses automatically when it exists; the originals are
+`data/products_clean/`, which the backend uses automatically when it exists; the originals are
 never modified.
 
 ```bash
@@ -69,7 +75,7 @@ cd backend
 cp .env.example .env
 ```
 
-Then edit `hw4/.env` and set `PORTKEY_API_KEY`. `OPENAI_MODEL` is already set to
+Then edit `.env` and set `PORTKEY_API_KEY`. `OPENAI_MODEL` is already set to
 `gpt-5.6-luna`. Never commit `.env`; it's in `.gitignore`.
 
 ### 3. Backend (http://localhost:8000)
@@ -103,6 +109,6 @@ with a saved chat history).
   safety rules, loop limits, the audit trail and run commands.
 - `output/app_check.html`: three live checks with screenshots. Open the file directly in a
   browser.
-- `output/usability.md`, `output/design.md`: the Problem 9 and Problem 10 write-ups.
+- `output/usability.md`, `output/design.md`: the usability improvements and the visual redesign.
 - `output/audit_trail.json`: one entry per chatbot turn.
-- `AI_prompts.md`: the prompt log for every problem.
+- `AI_prompts.md`: the prompts used to build the project.

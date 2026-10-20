@@ -1,6 +1,6 @@
 // Isolated seam for the shopping-assistant chat backend.
 //
-// Talks to the real FastAPI /api/chat endpoint (see hw4/backend/main.py),
+// Talks to the real FastAPI /api/chat endpoint (see backend/main.py),
 // which runs the message through a PydanticAI agent backed by gpt-5.6-luna
 // via Portkey and returns a structured ChatReply (message + optional grounded
 // product list). Requests are sent with credentials so the backend can tell

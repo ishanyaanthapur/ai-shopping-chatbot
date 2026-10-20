@@ -82,7 +82,7 @@ The agent has three tools (`backend/tools.py`), each backed by a real DB query a
 
 The system prompt was updated to tell the agent which tool matches which kind of question (discovery vs. detail vs. stock), to require it to look up a `product_id` via `search_products` before guessing one, and to respond to an out-of-stock size clearly and apologetically — optionally suggesting a real similar product via `search_products`, never an invented one.
 
-For the model call itself, the agent is wired to `gpt-5.6-luna` through Portkey, but not via the `portkey-ai` SDK directly — PydanticAI needs an OpenAI-Python-compatible async client, so `agent.py` builds a plain `openai.AsyncOpenAI` client pointed at Portkey's gateway (`base_url="https://api.portkey.ai/v1"`, with `x-portkey-provider: openai` as a header) and passes that client into PydanticAI's `OpenAIProvider`/`OpenAIChatModel` wrapper. The `PORTKEY_API_KEY` itself lives only in `hw4/.env` (gitignored; `backend/.env` is still read as a fallback; loaded with `python-dotenv`'s `load_dotenv()`, and `hw4/.env.example` shows the expected keys), so it never reaches the frontend bundle or gets sent anywhere except that one Portkey-bound client the backend process constructs — the browser only ever talks to `localhost:8000/api/chat`, never Portkey or OpenAI directly.
+For the model call itself, the agent is wired to `gpt-5.6-luna` through Portkey, but not via the `portkey-ai` SDK directly — PydanticAI needs an OpenAI-Python-compatible async client, so `agent.py` builds a plain `openai.AsyncOpenAI` client pointed at Portkey's gateway (`base_url="https://api.portkey.ai/v1"`, with `x-portkey-provider: openai` as a header) and passes that client into PydanticAI's `OpenAIProvider`/`OpenAIChatModel` wrapper. The `PORTKEY_API_KEY` itself lives only in `.env` (gitignored; `backend/.env` is still read as a fallback; loaded with `python-dotenv`'s `load_dotenv()`, and `.env.example` shows the expected keys), so it never reaches the frontend bundle or gets sent anywhere except that one Portkey-bound client the backend process constructs — the browser only ever talks to `localhost:8000/api/chat`, never Portkey or OpenAI directly.
 
 ## Chat Search → Page Cards
 
@@ -136,7 +136,7 @@ Two details make the handoff hold up under a real outage. First, failed turns ar
 
 The customer-facing rationale is in `output/design.md`. Implementation details worth knowing:
 
-**Product photo cleanup.** 75 of 102 catalogue JPEGs had their transparent backgrounds flattened to solid black. `backend/scripts/clean_product_images.py` builds a near-black mask (every channel ≤ 12, so navy garments around (20, 30, 60) are safe), flood-fills it from seed points along the image border so only edge-connected background is selected, grows that by a pixel to eat the JPEG halo, paints it white and pads to square. Output goes to `data/products_clean/`; `db.py` serves that folder when it exists and falls back to the untouched `data/products/` originals otherwise. Re-run with `.venv/bin/python scripts/clean_product_images.py` (needs `pillow` and `numpy`, listed in `hw4/requirements.txt`).
+**Product photo cleanup.** 75 of 102 catalogue JPEGs had their transparent backgrounds flattened to solid black. `backend/scripts/clean_product_images.py` builds a near-black mask (every channel ≤ 12, so navy garments around (20, 30, 60) are safe), flood-fills it from seed points along the image border so only edge-connected background is selected, grows that by a pixel to eat the JPEG halo, paints it white and pads to square. Output goes to `data/products_clean/`; `db.py` serves that folder when it exists and falls back to the untouched `data/products/` originals otherwise. Re-run with `.venv/bin/python scripts/clean_product_images.py` (needs `pillow` and `numpy`, listed in `requirements.txt`).
 
 **Collections and search** live in `frontend/src/catalog.ts`, shared by the header, home page and Products page. Collections (`?collection=colleges|sports|family|schools`) are rules over product names, since the catalogue has no such column. A single college or team uses an exact whole-word name filter (`?name=Morse`, `?name=Crew Left Chest`) rather than free-text `?q=`, because `q` matches across descriptions and tags — "crew" would otherwise pull in every crewneck. `?q=` requires every word to match somewhere (with a naive singular fallback), so adding words narrows results. All of these compose with the Problem 9 filter sidebar, which refines whatever base set they select.
 
@@ -278,8 +278,8 @@ A scan of the file found no `@` characters, names, passwords or keys. The trail 
 **Backend** (FastAPI, port 8000):
 
 ```bash
-cp hw4/.env.example hw4/.env                    # first time only: then set PORTKEY_API_KEY (never commit .env)
-cd hw4/backend
+cp .env.example .env                    # first time only: then set PORTKEY_API_KEY (never commit .env)
+cd backend
 python3 -m venv .venv                          # first time only
 .venv/bin/pip install -r ../requirements.txt   # first time only
 .venv/bin/uvicorn main:app --reload --port 8000
@@ -288,17 +288,17 @@ python3 -m venv .venv                          # first time only
 **Frontend** (Vite + React, port 5173):
 
 ```bash
-cd hw4/frontend
+cd frontend
 npm install        # first time only
 npm run dev        # then open http://localhost:5173
 ```
 
 Both ports are fixed: the frontend calls `http://localhost:8000`, and the backend's CORS setting only allows `http://localhost:5173`.
 
-The database and product photos aren't in the repository. Put the data pack at `hw4/data/campus_customs.db` and `hw4/data/products/` before starting the backend (see `README.md`).
+The database and product photos aren't in the repository. Put the data pack at `data/campus_customs.db` and `data/products/` before starting the backend (see `README.md`).
 
 **Useful extras:**
 - Demo login: `test@campuscustoms.yale.edu` / `password`, which has a saved chat history.
-- Re-clean the product photos: `cd hw4/backend && .venv/bin/python scripts/clean_product_images.py`.
-- Typecheck the frontend: `cd hw4/frontend && npx tsc -p tsconfig.app.json --noEmit`.
-- The audit trail is at `hw4/output/audit_trail.json`, and grows by one entry per chat turn.
+- Re-clean the product photos: `cd backend && .venv/bin/python scripts/clean_product_images.py`.
+- Typecheck the frontend: `cd frontend && npx tsc -p tsconfig.app.json --noEmit`.
+- The audit trail is at `output/audit_trail.json`, and grows by one entry per chat turn.

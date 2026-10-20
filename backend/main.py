@@ -1,7 +1,7 @@
 """Campus Customs storefront API.
 
 FastAPI app — run with: uvicorn main:app --reload --port 8000
-(from hw4/backend, using its .venv).
+(from backend, using its .venv).
 
 Serves the product catalogue, per-product inventory and product images
 from ../data/campus_customs.db, handles accounts and sessions, runs the
@@ -73,7 +73,7 @@ app.add_middleware(
 
 # --- Auth: session store + password hashing -------------------------------
 #
-# In-memory session store: session token -> user id. Fine for this homework
+# In-memory session store: session token -> user id. Fine for this demo
 # project (single backend process, no need for Redis/JWT/DB-backed sessions).
 SESSIONS: dict[str, int] = {}
 SESSION_COOKIE_NAME = "session_token"

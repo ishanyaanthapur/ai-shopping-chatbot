@@ -1,4 +1,4 @@
-# Campus Customs backend — install into hw4/backend/.venv:
+# Campus Customs backend — install into backend/.venv:
 #   cd backend && python3 -m venv .venv && .venv/bin/pip install -r ../requirements.txt
 # Versions are the ones the app was built and tested with.
 

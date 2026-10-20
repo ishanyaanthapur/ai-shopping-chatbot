@@ -21,7 +21,7 @@ from pydantic_ai.usage import UsageLimits
 from models import ChatReply
 from tools import get_product_details, get_stock_by_size, search_products
 
-# hw4/.env is the documented location (see hw4/.env.example); backend/.env
+# .env is the documented location (see .env.example); backend/.env
 # is still read as a fallback. load_dotenv never overrides a variable that's
 # already set, so the first file found wins.
 _BACKEND_DIR = Path(__file__).resolve().parent

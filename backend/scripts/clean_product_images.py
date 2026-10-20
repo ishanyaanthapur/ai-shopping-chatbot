@@ -12,7 +12,7 @@ paints it white, then pads every image to a square. Originals in
 data/products/ are never modified; cleaned copies go to data/products_clean/,
 which db.py serves in preference when it exists.
 
-Run from hw4/backend:  .venv/bin/python scripts/clean_product_images.py
+Run from backend:  .venv/bin/python scripts/clean_product_images.py
 """
 
 from pathlib import Path

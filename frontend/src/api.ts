@@ -1,4 +1,4 @@
-// Base URL for the Campus Customs FastAPI backend (see hw4/backend/main.py).
+// Base URL for the Campus Customs FastAPI backend (see backend/main.py).
 // The backend runs locally on port 8000 during development.
 export const API_BASE_URL = "http://localhost:8000";
 

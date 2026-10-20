@@ -1,4 +1,4 @@
-// Auth API calls for the Campus Customs FastAPI backend (see hw4/backend/main.py).
+// Auth API calls for the Campus Customs FastAPI backend (see backend/main.py).
 // All requests use credentials: 'include' so the httponly session cookie is
 // sent/stored across the :5173 <-> :8000 origins.
 import { API_BASE_URL } from "../api";
